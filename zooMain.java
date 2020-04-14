@@ -5,7 +5,7 @@ public class zooMain
     public static void main(String[] args)
     {
         Scanner input = new Scanner(System.in);
-        String firstAction;
+        String firstAction = "";
         int numAction = 0;
 
         //εμφάνιση του μενού με διαδοχικά prints.
