@@ -7,22 +7,33 @@ public class zooMain
     public static void main(String[] args)
     {
         List<Animal> allAnimals = new ArrayList<>();
+        int menu = 0;
 
         Animal a1 = new Animal("Takis", "Tiger", "Mammal", 120, 25);
         Animal a2 = new Animal("Shiba", "Cat", "Mammal", 10, 15);
         Animal a3 = new Animal("Jason", "Wolf", "Mammal", 90, 30);
 
-        /*switch (showMenu())
+        allAnimals.add(a1);
+        allAnimals.add(a2);
+        allAnimals.add(a3);
+
+        do
         {
-            case 1:
-                System.out.println("Lista me ta zwa");
-                System.out.println("kiallos kwdikas");
-                break;
-            case 2:
-                System.out.println("Prosthiki neou zwou");
-                System.out.println("Kiallos kwdiks");
-                break;
-        }*/
+            menu = showMenu();
+            switch (menu)
+            {
+                case 1:
+                    for (Animal a: allAnimals)
+                    {
+                        System.out.println("Id: " + a.getId() + ", Name: " + a.getCustomName() + ", Animal: " + a.getAnimalName());
+                    }
+                    continue;
+                case 2:
+                    System.out.println("Prosthiki neou zwou");
+                    System.out.println("Kiallos kwdiks");
+                    continue;
+            }
+        } while(menu != 7);
     }
 
     public static int showMenu()
@@ -43,7 +54,7 @@ public class zooMain
         System.out.println("'4' Αναζήτηση με κωδικό");
         System.out.println("'5' Επεξεργασία ζώου");
         System.out.println("'6' Διαγραφή ζώου");
-        System.out.println("'7' ΕΞΟΔΟΣ\n");
+        System.out.println("'7' ΕΞΟΔΟΣ");
         
         //χρησιμοποιούμε μια do while επανάληψη, για να διασφαλίσουμε την επιθυμητή είσοδο του χρήστη.
         do
