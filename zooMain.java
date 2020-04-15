@@ -1,10 +1,28 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class zooMain
 {
     public static void main(String[] args)
     {
-        
+        List<Animal> allAnimals = new ArrayList<>();
+
+        Animal a1 = new Animal("Takis", "Tiger", "Mammal", 120, 25);
+        Animal a2 = new Animal("Shiba", "Cat", "Mammal", 10, 15);
+        Animal a3 = new Animal("Jason", "Wolf", "Mammal", 90, 30);
+
+        /*switch (showMenu())
+        {
+            case 1:
+                System.out.println("Lista me ta zwa");
+                System.out.println("kiallos kwdikas");
+                break;
+            case 2:
+                System.out.println("Prosthiki neou zwou");
+                System.out.println("Kiallos kwdiks");
+                break;
+        }*/
     }
 
     public static int showMenu()
@@ -54,6 +72,13 @@ public class zooMain
                 System.out.print("[ΣΦΑΛΜΑ]: Θα πρέπει να εισάγετε κάποιον αριθμό.");
             }
         } while (true);
+
         return numAction;
+    }
+
+    //συνάρτηση προσθήκης νέου ζώου
+    public static void addNewAnimal()
+    {
+        System.out.println("");
     }
 }
