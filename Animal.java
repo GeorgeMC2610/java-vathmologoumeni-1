@@ -57,6 +57,7 @@ public class Animal
         boolean found = false;
         int a = 10000;
 
+        //διασφαλίζουμε ότι ποτέ δεν θα υπάρχουν δύο κωδικοί ίδιοι.
         while (found == false)
         {
            a = rand.nextInt(99999);
