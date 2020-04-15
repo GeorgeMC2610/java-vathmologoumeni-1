@@ -4,6 +4,11 @@ public class zooMain
 {
     public static void main(String[] args)
     {
+        
+    }
+
+    public static int showMenu()
+    {
         Scanner input = new Scanner(System.in);
         String firstAction = "";
         int numAction = 0;
@@ -49,5 +54,6 @@ public class zooMain
                 System.out.print("[ΣΦΑΛΜΑ]: Θα πρέπει να εισάγετε κάποιον αριθμό.");
             }
         } while (true);
+        return numAction;
     }
 }
