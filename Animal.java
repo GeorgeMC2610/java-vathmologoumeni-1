@@ -61,11 +61,13 @@ public class Animal
         while (found == false)
         {
            a = rand.nextInt(99999);
-
            for (int i = 0; i < takenIds.size(); i++)
            {
                if (a == takenIds.get(i))
+               {
                     a = rand.nextInt(99999);
+                    i = 0;
+               }
            }
            
            found = true;
