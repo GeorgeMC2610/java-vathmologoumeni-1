@@ -49,7 +49,7 @@ public class zooMain
                     }
                     catch (Exception e)
                     {}
-                    continue;
+                    break;
                 case 2:
                     String customName, animalName, type;
                     int maxAge, weight; 
@@ -77,26 +77,54 @@ public class zooMain
                     allAnimals.add(a);
 
                     System.out.println("[ΠΡΟΣΘΗΚΗ]: Η προσθήκη ολοκληρώθηκε!");
-                    continue;
+                    break;
                 case 3:
-                    System.out.println("Ποιό όνομα θέλετε να ψάξετε; --> ");
-                    String keyword = input.nextLine();
+                    String answer1, keyword;
 
-                    serialSearch(keyword, false);
-                    System.out.print("\nΠατήστε enter για να επιστρέψετε στο μενού...");
-                    try
+                    do
                     {
-                        System.in.read();
-                    }
-                    catch (Exception e)
-                    {}
-                    continue;
+                        System.out.println("Ποιό όνομα θέλετε να ψάξετε; --> ");
+                        keyword = input.nextLine();
+                        
+                        serialSearch(keyword, false);
+
+                        System.out.println("\nΘα θέλατε να ψάξετε και για κάποιο άλλο όνομα; (y/n) -->");
+                        answer1 = input.nextLine();
+
+                    } while (answer1.equals("y"));
+
+                    break;
                 case 4:
-                    continue;
+                    String startingKeyword, answer2 = "";
+                    int numericKeyword = -1;
+
+                    do
+                    {
+                        System.out.println("Ποιον κωδικό θέλετε να ψάξετε; -->");
+                        startingKeyword = input.nextLine();
+
+                        try
+                        {
+                            numericKeyword = Integer.parseInt(startingKeyword);
+                        }
+                        catch (Exception e)
+                        {
+                            System.out.println("[ΣΦΑΛΜΑ]: O κωδικός θα πρέπει να είναι αριθμός.");
+                        }
+
+                        if (numericKeyword != -1)
+                            serialSearch(startingKeyword, true);
+
+                        System.out.println("\nΘα θέλατε να ψάξετε για κάποιον άλλον κωδικό; (y/n)");
+                        answer2 = input.nextLine();
+
+                    } while (answer2.equals("y"));
+                    
+                    break;
                 case 5:
-                    continue;
+                    break;
                 case 6:
-                    continue;
+                    break;
             }
         } while(menu != 7);
     }
@@ -135,7 +163,8 @@ public class zooMain
                     System.out.print("[ΣΦΑΛΜΑ]: Λάθος αριθμός.");
                     continue;
                 }
-                else break;
+                else
+                    break;
             }
             //κώδικας που εκτελείται σε περίπτωση που ο χρήστης ΔΕΝ έχει δώσει αριθμό.
             catch (Exception e)
