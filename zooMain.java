@@ -180,6 +180,8 @@ public class zooMain
     public static void serialSearch(String keyword, boolean searchForId)
     {
         int numericKeyword = -1;
+        boolean foundAtLeastOne = false;
+
         for (Animal a: allAnimals)
         {
             if (searchForId == true)
@@ -187,13 +189,22 @@ public class zooMain
                 numericKeyword = Integer.parseInt(keyword);
 
                 if (a.getId() == numericKeyword)
+                {
                     System.out.println("ΒΡΕΘΗΚΕ ΑΠΟΤΕΛΕΣΜΑ: " + a.getCustomName() + ", " + a.getAnimalName() + ", " + a.getType() + ", " + a.getMaxAge() + " χρόνια, " + a.getWeight() + " κιλά.");
+                    foundAtLeastOne = true;
+                }
             }
             else
             {
                 if (a.getCustomName().equals(keyword))
+                {
                     System.out.println("ΒΡΕΘΗΚΕ ΑΠΟΤΕΛΕΣΜΑ: " + a.getId() + ", " + a.getAnimalName() + ", " + a.getType() + ", " + a.getMaxAge() + " χρόνια, " + a.getWeight() + " κιλά.");
+                    foundAtLeastOne = true;
+                }
             }
         }
+
+        if (!(foundAtLeastOne))
+            System.out.println("Δεν βρέθηκαν αποτελέσματα με την λέξη-κλειδί " + keyword + ".");
     }
 }
