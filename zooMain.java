@@ -170,6 +170,9 @@ public class zooMain
                     do
                     {
                         System.out.println("== ΜΕΝΟΥ ΕΠΕΞΕΡΓΑΣΙΑΣ ΖΩΟΥ ==");
+                        System.out.println("Εισάγετε τον κωδικό ζώου, που θέλετε να επεξεργαστείτε --> ");
+                        
+                        
                     }
 
 
@@ -228,7 +231,7 @@ public class zooMain
     }
 
     //μέθοδος για σειριακή αναζήτηση
-    public static void serialSearch(String keyword, boolean searchForId)
+    public static boolean serialSearch(String keyword, boolean searchForId)
     {
         int numericKeyword = -1;
         boolean foundAtLeastOne = false;
@@ -257,5 +260,7 @@ public class zooMain
 
         if (!(foundAtLeastOne))
             System.out.println("Δεν βρέθηκαν αποτελέσματα με την λέξη-κλειδί '" + keyword + "'.");
+        
+        return foundAtLeastOne;
     }
 }
