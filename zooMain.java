@@ -11,15 +11,22 @@ public class zooMain
     {
         int menu = 0;
 
-        Animal a1 = new Animal("Jigger", "Tiger", "Mammal", 120, 25);
-        Animal a2 = new Animal("Shiba", "Leopard", "Mammal", 10, 15);
-        Animal a3 = new Animal("Jason", "Wolf", "Mammal", 90, 30);
-        Animal a4 = new Animal("Errand", "Parrot", "Aves", 90, 30);
+        Animal a1 = new Animal("Alfred", "Tiger", "Mammal", 120, 25);
+        Animal a2 = new Animal("Huntress", "Leopard", "Mammal", 10, 15);
+        Animal a3 = new Animal("Screamer", "Wolf", "Mammal", 90, 30);
+        Animal a4 = new Animal("Jason", "Parrot", "Aves", 90, 30);
+        Animal a5 = new Animal("Pinto", "Giraffe", "Mammal", 140, 45);
+        Animal a6 = new Animal("Jager", "Hyenna", "Mammal", 99, 23);
+        Animal a7 = new Animal("Bigtooth", "Shark", "Fish", 187, 29);
 
         allAnimals.add(a1);
         allAnimals.add(a2);
         allAnimals.add(a3);
         allAnimals.add(a4);
+        allAnimals.add(a5);
+        allAnimals.add(a6);
+        allAnimals.add(a7);
+
 
         System.out.println("ΓΙΩΡΓΟΣ ΣΕΪΜΕΝΗΣ, ΠΑΝΕΠΙΣΤΗΜΙΟ ΠΕΙΡΑΙΩΣ ΤΜΗΜΑ ΠΛΗΡΟΦΟΡΙΚΗΣ, Π19204\n\n");
 
@@ -33,7 +40,7 @@ public class zooMain
             switch (menu)
             {
                 case 1:
-                    System.out.println("ΛΙΣΤΑ ΜΕ ΟΛΑ ΤΑ ΔΙΑΘΕΣΙΜΑ ΖΩΑ:\n");
+                    System.out.println("\nΛΙΣΤΑ ΜΕ ΟΛΑ ΤΑ ΔΙΑΘΕΣΙΜΑ ΖΩΑ:\n");
                     int i = 1;
                     for (Animal a: allAnimals)
                     {
@@ -42,14 +49,14 @@ public class zooMain
                     }
 
                     //δυνατότητα πατήματος enter για συνέχεια.
-                    System.out.print("\nΠατήστε enter για να επιστρέψετε στο μενού...");
-                    try
-                    {
-                        System.in.read();
-                    }
-                    catch (Exception e)
-                    {}
-                    break;
+                    System.out.print("\nΕπιστροφή στο αρχικό μενού; (y/n) --> ");
+                    String answer = input.nextLine();
+
+                    if (answer.equals("y"))
+                        break;
+                    else
+                        menu = 7;
+                        break;
                 case 2:
                     String customName, animalName, type;
                     int maxAge, weight; 
@@ -57,38 +64,39 @@ public class zooMain
                     System.out.println("=== ΜΕΝΟΥ ΠΡΟΣΘΗΚΗΣ ΝΕΟΥ ΖΩΟΥ ===");
             
                     //εισαγωγή στοιχείων του ζώου. Από τη στιγμή που ο Χρήστης εισάγει strings δεν χρειάζεται κάποιος έλεγχος.
-                    System.out.println("Πώς θέλετε να το ονομάσετε; --> ");
+                    System.out.print("\nΠώς θέλετε να το ονομάσετε; --> ");
                     customName = input.nextLine();
 
-                    System.out.println("Τι ζώο είναι; --> ");
+                    System.out.print("Τι ζώο είναι; --> ");
                     animalName = input.nextLine();
 
-                    System.out.println("Σε ποιά κατηγορία ανήκει (π.χ. θηλαστικό); --> ");
+                    System.out.print("Σε ποιά κατηγορία ανήκει (π.χ. θηλαστικό); --> ");
                     type = input.nextLine();
 
                     //εισαγωγή αριθμητικών στοιχείων, εδώ θα χρειαστεί λίγος παραπάνω έλεγχος.
-                    System.out.println("Πόσα κιλά (kg) ζυγίζει; --> ");
+                    System.out.print("Πόσα κιλά (kg) ζυγίζει; --> ");
                     weight = input.nextInt();
 
-                    System.out.println("Ποιά είναι μέγιστη ηλικία του; --> ");
+                    System.out.print("Ποιά είναι μέγιστη ηλικία του; --> ");
                     maxAge = input.nextInt();
                     
                     Animal a = new Animal(customName, animalName, type, weight, maxAge);
                     allAnimals.add(a);
 
-                    System.out.println("[ΠΡΟΣΘΗΚΗ]: Η προσθήκη ολοκληρώθηκε!");
+                    System.out.println("\n[ΠΡΟΣΘΗΚΗ]: Επιτυχής προσθήκη! Το ζώο σας είναι στον ζωολογικό κήπο με κωδικό " + a.getId());
+                    menu = 0;
                     break;
                 case 3:
                     String answer1, keyword;
 
                     do
                     {
-                        System.out.println("Ποιό όνομα θέλετε να ψάξετε; --> ");
+                        System.out.print("Ποιό όνομα θέλετε να ψάξετε; --> ");
                         keyword = input.nextLine();
                         
                         serialSearch(keyword, false);
 
-                        System.out.println("\nΘα θέλατε να ψάξετε και για κάποιο άλλο όνομα; (y/n) -->");
+                        System.out.print("\nΘα θέλατε να ψάξετε και για κάποιο άλλο όνομα; (y/n) --> ");
                         answer1 = input.nextLine();
 
                     } while (answer1.equals("y"));
@@ -100,7 +108,7 @@ public class zooMain
 
                     do
                     {
-                        System.out.println("Ποιον κωδικό θέλετε να ψάξετε; -->");
+                        System.out.print("Ποιον κωδικό θέλετε να ψάξετε; --> ");
                         startingKeyword = input.nextLine();
 
                         try
@@ -115,7 +123,7 @@ public class zooMain
                         if (numericKeyword != -1)
                             serialSearch(startingKeyword, true);
 
-                        System.out.println("\nΘα θέλατε να ψάξετε για κάποιον άλλον κωδικό; (y/n)");
+                        System.out.print("\nΘα θέλατε να ψάξετε για κάποιον άλλον κωδικό; (y/n) --> ");
                         answer2 = input.nextLine();
 
                     } while (answer2.equals("y"));
@@ -132,7 +140,7 @@ public class zooMain
     //μέθοδος για την Εμφάνιση του μενού, η οποία επιστρέφει και την επιλογή του Χρήστη.
     public static int showMenu()
     {
-        String firstAction = "";
+        //String firstAction = "";
         int numAction = 0;
 
         //εμφάνιση του μενού με διαδοχικά prints.
@@ -144,12 +152,12 @@ public class zooMain
         System.out.println("'6' Διαγραφή ζώου");
         System.out.println("'7' ΕΞΟΔΟΣ");
         
-        //χρησιμοποιούμε μια do while επανάληψη, για να διασφαλίσουμε την επιθυμητή είσοδο του χρήστη.
+        //χρησιμοποιούμε μια do-while επανάληψη, για να διασφαλίσουμε την επιθυμητή είσοδο του χρήστη.
         do
         {
             //μήνυμα για εισαγωγή ενέργειας
-            System.out.println("\nΕισάγετε ενέργεια: ");
-            firstAction = input.nextLine();
+            System.out.print("\nΕισάγετε ενέργεια: ");
+            String firstAction = input.nextLine();
             
             //θα πρέπει να υπολογίσουμε κάθε πιθανό σενάριο εισόδου, οπότε σε περίπτωση που ο Χρήστης δώσει κάποιο γράμμα και όχι αριθμό, πρέπει να πράξουμε ανάλογα.
             try
@@ -157,7 +165,7 @@ public class zooMain
                 //πρσοπάθεια απόσπασης σε ακέραια τιμή του αριθμού που δίνει ο Χρήστης
                 numAction = Integer.parseInt(firstAction);
 
-                //έλεγχος για το αν η τιμή που εισήχθη είναι έγκυρη. Αν δεν είναι έγκυρη, προβάλλουμε μήνυμα, και μετά ξανά προσπαθούμε με την λέξη continue
+                //έλεγχος για το αν η τιμή που εισήχθη είναι έγκυρη. Αν δεν είναι έγκυρη, προβάλλουμε μήνυμα, και μετά ξανά προσπαθούμε με την λέξη continue.
                 if (numAction <= 0 || numAction > 7)
                 {
                     System.out.print("[ΣΦΑΛΜΑ]: Λάθος αριθμός.");
@@ -205,6 +213,6 @@ public class zooMain
         }
 
         if (!(foundAtLeastOne))
-            System.out.println("Δεν βρέθηκαν αποτελέσματα με την λέξη-κλειδί " + keyword + ".");
+            System.out.println("Δεν βρέθηκαν αποτελέσματα με την λέξη-κλειδί '" + keyword + "'.");
     }
 }
