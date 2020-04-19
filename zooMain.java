@@ -50,44 +50,80 @@ public class zooMain
 
                     //δυνατότητα πατήματος enter για συνέχεια.
                     System.out.print("\nΕπιστροφή στο αρχικό μενού; (y/n) --> ");
-                    String answer = input.nextLine();
+                    String answer1 = input.nextLine();
 
-                    if (answer.equals("y"))
+                    if (answer1.equals("y"))
                         break;
                     else
                         menu = 7;
                         break;
                 case 2:
-                    String customName, animalName, type;
+                    String customName, animalName, type, answer2 = "";
                     int maxAge, weight; 
-            
-                    System.out.println("=== ΜΕΝΟΥ ΠΡΟΣΘΗΚΗΣ ΝΕΟΥ ΖΩΟΥ ===");
-            
-                    //εισαγωγή στοιχείων του ζώου. Από τη στιγμή που ο Χρήστης εισάγει strings δεν χρειάζεται κάποιος έλεγχος.
-                    System.out.print("\nΠώς θέλετε να το ονομάσετε; --> ");
-                    customName = input.nextLine();
-
-                    System.out.print("Τι ζώο είναι; --> ");
-                    animalName = input.nextLine();
-
-                    System.out.print("Σε ποιά κατηγορία ανήκει (π.χ. θηλαστικό); --> ");
-                    type = input.nextLine();
-
-                    //εισαγωγή αριθμητικών στοιχείων, εδώ θα χρειαστεί λίγος παραπάνω έλεγχος.
-                    System.out.print("Πόσα κιλά (kg) ζυγίζει; --> ");
-                    weight = input.nextInt();
-
-                    System.out.print("Ποιά είναι μέγιστη ηλικία του; --> ");
-                    maxAge = input.nextInt();
                     
-                    Animal a = new Animal(customName, animalName, type, weight, maxAge);
-                    allAnimals.add(a);
+                    //δίνουμε την δυνατότητα στον Χρήστη να εισάγει πολλά ζώα, αν αυτός επιθυμεί.
+                    do {
 
-                    System.out.println("\n[ΠΡΟΣΘΗΚΗ]: Επιτυχής προσθήκη! Το ζώο σας είναι στον ζωολογικό κήπο με κωδικό " + a.getId());
-                    menu = 0;
+                        System.out.println("=== ΜΕΝΟΥ ΠΡΟΣΘΗΚΗΣ ΝΕΟΥ ΖΩΟΥ ===");
+                
+                        //εισαγωγή στοιχείων του ζώου. Από τη στιγμή που ο Χρήστης εισάγει strings δεν χρειάζεται κάποιος έλεγχος.
+                        System.out.print("\nΠώς θέλετε να το ονομάσετε; --> ");
+                        customName = input.nextLine();
+
+                        System.out.print("Τι ζώο είναι; --> ");
+                        animalName = input.nextLine();
+
+                        System.out.print("Σε ποιά κατηγορία ανήκει (π.χ. θηλαστικό); --> ");
+                        type = input.nextLine();
+
+                        //εισαγωγή αριθμητικών στοιχείων, εδώ θα χρειαστεί λίγος παραπάνω έλεγχος.
+                        System.out.print("Πόσα κιλά (kg) ζυγίζει; --> ");
+                        String startingWeight = input.nextLine();
+
+                        //εδώ διασφαλίζουμε ότι ο Χρήστης θα δώσει μόνον αριθμούς.
+                        do
+                        {
+                            try
+                            {
+                                weight = Integer.parseInt(startingWeight);
+                                break;
+                            }
+                            catch (Exception e)
+                            {
+                                System.out.print("Το βάρος θα πρέπει να είναι αριθμός. Προσπαθήστε ξανά --> ");
+                                startingWeight = input.nextLine();
+                            }
+                        } while (true);
+
+                        System.out.print("Ποιά είναι μέγιστη ηλικία του; --> ");
+                        String startingMaxAge = input.nextLine();
+
+                        do
+                        {
+                            try
+                            {
+                                maxAge = Integer.parseInt(startingMaxAge);
+                                break;
+                            }
+                            catch (Exception e)
+                            {
+                                System.out.print("Η μέγιστη ηλικία θα πρέπει να είναι αριθμός. Προσπαθήστε ξανά --> ");
+                                startingMaxAge = input.nextLine();
+                            }
+                        } while (true);
+                        
+                        Animal a = new Animal(customName, animalName, type, weight, maxAge);
+                        allAnimals.add(a);
+
+                        System.out.println("\n[ΠΡΟΣΘΗΚΗ]: Επιτυχής προσθήκη! Το ζώο σας είναι στον ζωολογικό κήπο με κωδικό " + a.getId());
+                        System.out.print("Θα θέλατε να προσθέσετε κι άλλο ζώο στη λίστα; (y/n) --> ");
+                        answer2 = input.nextLine();
+
+                    } while (answer2.equals("y"));
+
                     break;
                 case 3:
-                    String answer1, keyword;
+                    String answer3, keyword;
 
                     do
                     {
@@ -97,13 +133,13 @@ public class zooMain
                         serialSearch(keyword, false);
 
                         System.out.print("\nΘα θέλατε να ψάξετε και για κάποιο άλλο όνομα; (y/n) --> ");
-                        answer1 = input.nextLine();
+                        answer3 = input.nextLine();
 
-                    } while (answer1.equals("y"));
+                    } while (answer3.equals("y"));
 
                     break;
                 case 4:
-                    String startingKeyword, answer2 = "";
+                    String startingKeyword, answer4 = "";
                     int numericKeyword = -1;
 
                     do
@@ -124,12 +160,19 @@ public class zooMain
                             serialSearch(startingKeyword, true);
 
                         System.out.print("\nΘα θέλατε να ψάξετε για κάποιον άλλον κωδικό; (y/n) --> ");
-                        answer2 = input.nextLine();
+                        answer4 = input.nextLine();
 
-                    } while (answer2.equals("y"));
+                    } while (answer4.equals("y"));
                     
                     break;
                 case 5:
+                    
+                    do
+                    {
+                        System.out.println("== ΜΕΝΟΥ ΕΠΕΞΕΡΓΑΣΙΑΣ ΖΩΟΥ ==");
+                    }
+
+
                     break;
                 case 6:
                     break;
@@ -192,7 +235,7 @@ public class zooMain
 
         for (Animal a: allAnimals)
         {
-            if (searchForId == true)
+            if (searchForId)
             {
                 numericKeyword = Integer.parseInt(keyword);
 
