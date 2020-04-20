@@ -79,38 +79,11 @@ public class zooMain
                         //εισαγωγή αριθμητικών στοιχείων, εδώ θα χρειαστεί λίγος παραπάνω έλεγχος.
                         System.out.print("Πόσα κιλά (kg) ζυγίζει; --> ");
                         String startingWeight = input.nextLine();
-
-                        //εδώ διασφαλίζουμε ότι ο Χρήστης θα δώσει μόνον αριθμούς.
-                        do
-                        {
-                            try
-                            {
-                                weight = Integer.parseInt(startingWeight);
-                                break;
-                            }
-                            catch (Exception e)
-                            {
-                                System.out.print("Το βάρος θα πρέπει να είναι αριθμός. Προσπαθήστε ξανά --> ");
-                                startingWeight = input.nextLine();
-                            }
-                        } while (true);
+                        weight = convertSafelyToInteger(startingWeight);
 
                         System.out.print("Ποιά είναι μέγιστη ηλικία του; --> ");
                         String startingMaxAge = input.nextLine();
-
-                        do
-                        {
-                            try
-                            {
-                                maxAge = Integer.parseInt(startingMaxAge);
-                                break;
-                            }
-                            catch (Exception e)
-                            {
-                                System.out.print("Η μέγιστη ηλικία θα πρέπει να είναι αριθμός. Προσπαθήστε ξανά --> ");
-                                startingMaxAge = input.nextLine();
-                            }
-                        } while (true);
+                        maxAge = convertSafelyToInteger(startingMaxAge);
                         
                         Animal a = new Animal(customName, animalName, type, weight, maxAge);
                         allAnimals.add(a);
@@ -140,24 +113,12 @@ public class zooMain
                     break;
                 case 4:
                     String startingKeyword, answer4 = "";
-                    int numericKeyword = -1;
 
                     do
                     {
                         System.out.print("Ποιον κωδικό θέλετε να ψάξετε; --> ");
                         startingKeyword = input.nextLine();
-
-                        try
-                        {
-                            numericKeyword = Integer.parseInt(startingKeyword);
-                        }
-                        catch (Exception e)
-                        {
-                            System.out.println("[ΣΦΑΛΜΑ]: O κωδικός θα πρέπει να είναι αριθμός.");
-                        }
-
-                        if (numericKeyword != -1)
-                            serialSearch(startingKeyword, true);
+                        serialSearch(startingKeyword, true);
 
                         System.out.print("\nΘα θέλατε να ψάξετε για κάποιον άλλον κωδικό; (y/n) --> ");
                         answer4 = input.nextLine();
@@ -166,7 +127,8 @@ public class zooMain
                     
                     break;
                 case 5:
-                    String testKeyword = "";
+                    String testKeyword, answer5 = "";
+
 
                     break;
                 case 6:
@@ -221,7 +183,7 @@ public class zooMain
             //άμα η boolean μεταβλητή είναι true σημαίνει ότι ψάχνουμε για κωδικό, επομένως έχουμε να κάνουμε με αριθμό, άρα διαφορετική συνθήκη για σειριακή αναζήτηση.
             if (searchForId)
             {
-                numericKeyword = Integer.parseInt(keyword);
+                numericKeyword = convertSafelyToInteger(keyword);
 
                 //από τη στιγμή που έχουμε να κάνουμε με αριθμό, κάνουμε με το σύμβολο '==' την συνθήκη μας.
                 if (a.getId() == numericKeyword)
@@ -251,7 +213,7 @@ public class zooMain
     public static int convertSafelyToInteger(String s)
     {
         int i;
-        do
+        while (true)
         {
             try
             {
@@ -262,7 +224,8 @@ public class zooMain
             {
                 System.out.print("[ΣΦΑΛΜΑ]: Θα πρέπει να εισάγετε έναν ακέραιο αριθμό. Προσπαθήστε ξανά --> ");
                 s = input.nextLine();
+                continue;
             }
-        } while (true);
+        }
     }
 }
