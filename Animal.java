@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Animal
+public class Animal implements Serializable
 {
     private int weight, maxAge, id;
     private String customName, type, animalName;

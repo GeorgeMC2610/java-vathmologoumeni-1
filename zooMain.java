@@ -166,18 +166,12 @@ public class zooMain
                     
                     break;
                 case 5:
-                    
-                    do
-                    {
-                        System.out.println("== ΜΕΝΟΥ ΕΠΕΞΕΡΓΑΣΙΑΣ ΖΩΟΥ ==");
-                        System.out.println("Εισάγετε τον κωδικό ζώου, που θέλετε να επεξεργαστείτε --> ");
-                        
-                        
-                    }
-
+                    String testKeyword = "";
 
                     break;
                 case 6:
+
+
                     break;
             }
         } while(menu != 7);
@@ -197,37 +191,22 @@ public class zooMain
         System.out.println("'5' Επεξεργασία ζώου");
         System.out.println("'6' Διαγραφή ζώου");
         System.out.println("'7' ΕΞΟΔΟΣ");
-        
-        //χρησιμοποιούμε μια do-while επανάληψη, για να διασφαλίσουμε την επιθυμητή είσοδο του χρήστη.
-        do
+
+        //
+        while (true)
         {
-            //μήνυμα για εισαγωγή ενέργειας
             System.out.print("\nΕισάγετε ενέργεια: ");
             String firstAction = input.nextLine();
-            
-            //θα πρέπει να υπολογίσουμε κάθε πιθανό σενάριο εισόδου, οπότε σε περίπτωση που ο Χρήστης δώσει κάποιο γράμμα και όχι αριθμό, πρέπει να πράξουμε ανάλογα.
-            try
-            {
-                //πρσοπάθεια απόσπασης σε ακέραια τιμή του αριθμού που δίνει ο Χρήστης
-                numAction = Integer.parseInt(firstAction);
+            numAction = convertSafelyToInteger(firstAction);
 
-                //έλεγχος για το αν η τιμή που εισήχθη είναι έγκυρη. Αν δεν είναι έγκυρη, προβάλλουμε μήνυμα, και μετά ξανά προσπαθούμε με την λέξη continue.
-                if (numAction <= 0 || numAction > 7)
-                {
-                    System.out.print("[ΣΦΑΛΜΑ]: Λάθος αριθμός.");
-                    continue;
-                }
-                else
-                    break;
-            }
-            //κώδικας που εκτελείται σε περίπτωση που ο χρήστης ΔΕΝ έχει δώσει αριθμό.
-            catch (Exception e)
+            if (numAction <= 0 || numAction > 7)
             {
-                System.out.print("[ΣΦΑΛΜΑ]: Θα πρέπει να εισάγετε κάποιον αριθμό.");
+                System.out.println("[ΣΦΑΛΜΑ]: Λάθος αριθμός.");
+                continue;
             }
-        } while (true);
-
-        return numAction;
+            else
+                return numAction;
+        }     
     }
 
     //μέθοδος για σειριακή αναζήτηση
@@ -236,12 +215,15 @@ public class zooMain
         int numericKeyword = -1;
         boolean foundAtLeastOne = false;
 
+        //Ψάχνουμε ένα-ένα τα αντικείμενά μας
         for (Animal a: allAnimals)
         {
+            //άμα η boolean μεταβλητή είναι true σημαίνει ότι ψάχνουμε για κωδικό, επομένως έχουμε να κάνουμε με αριθμό, άρα διαφορετική συνθήκη για σειριακή αναζήτηση.
             if (searchForId)
             {
                 numericKeyword = Integer.parseInt(keyword);
 
+                //από τη στιγμή που έχουμε να κάνουμε με αριθμό, κάνουμε με το σύμβολο '==' την συνθήκη μας.
                 if (a.getId() == numericKeyword)
                 {
                     System.out.println("ΒΡΕΘΗΚΕ ΑΠΟΤΕΛΕΣΜΑ: " + a.getCustomName() + ", " + a.getAnimalName() + ", " + a.getType() + ", " + a.getMaxAge() + " χρόνια, " + a.getWeight() + " κιλά.");
@@ -250,6 +232,7 @@ public class zooMain
             }
             else
             {
+                //εδώ χρησιμοποιούμε την .equals για να δούμε αν δύο Strings είναι ίδια μεταξύ τους.
                 if (a.getCustomName().equals(keyword))
                 {
                     System.out.println("ΒΡΕΘΗΚΕ ΑΠΟΤΕΛΕΣΜΑ: " + a.getId() + ", " + a.getAnimalName() + ", " + a.getType() + ", " + a.getMaxAge() + " χρόνια, " + a.getWeight() + " κιλά.");
@@ -258,9 +241,28 @@ public class zooMain
             }
         }
 
+        //σε περίπτωση που δεν βρήκαμε τίποτα στην λίστα, με τη βοήθεια αυτής της μεταβλητής, πετάμε και το ανάλογο μήνυμα στον χρήστη.
         if (!(foundAtLeastOne))
-            System.out.println("Δεν βρέθηκαν αποτελέσματα με την λέξη-κλειδί '" + keyword + "'.");
+            System.out.println("\nΔεν βρέθηκαν αποτελέσματα με την λέξη-κλειδί '" + keyword + "'.");
         
         return foundAtLeastOne;
+    }
+
+    public static int convertSafelyToInteger(String s)
+    {
+        int i;
+        do
+        {
+            try
+            {
+                i = Integer.parseInt(s);
+                return i;
+            }
+            catch (Exception e)
+            {
+                System.out.print("[ΣΦΑΛΜΑ]: Θα πρέπει να εισάγετε έναν ακέραιο αριθμό. Προσπαθήστε ξανά --> ");
+                s = input.nextLine();
+            }
+        } while (true);
     }
 }
