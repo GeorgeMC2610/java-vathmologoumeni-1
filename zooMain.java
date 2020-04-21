@@ -118,6 +118,8 @@ public class zooMain
                     {
                         System.out.print("Ποιον κωδικό θέλετε να ψάξετε; --> ");
                         startingKeyword = input.nextLine();
+                        
+
                         serialSearch(startingKeyword, true);
 
                         System.out.print("\nΘα θέλατε να ψάξετε για κάποιον άλλον κωδικό; (y/n) --> ");
@@ -127,9 +129,6 @@ public class zooMain
                     
                     break;
                 case 5:
-                    String testKeyword, answer5 = "";
-
-
                     break;
                 case 6:
 
@@ -154,7 +153,6 @@ public class zooMain
         System.out.println("'6' Διαγραφή ζώου");
         System.out.println("'7' ΕΞΟΔΟΣ");
 
-        //
         while (true)
         {
             System.out.print("\nΕισάγετε ενέργεια: ");
@@ -174,7 +172,7 @@ public class zooMain
     //μέθοδος για σειριακή αναζήτηση
     public static boolean serialSearch(String keyword, boolean searchForId)
     {
-        int numericKeyword = -1;
+        int numericKeyword;
         boolean foundAtLeastOne = false;
 
         //Ψάχνουμε ένα-ένα τα αντικείμενά μας
@@ -183,7 +181,7 @@ public class zooMain
             //άμα η boolean μεταβλητή είναι true σημαίνει ότι ψάχνουμε για κωδικό, επομένως έχουμε να κάνουμε με αριθμό, άρα διαφορετική συνθήκη για σειριακή αναζήτηση.
             if (searchForId)
             {
-                numericKeyword = convertSafelyToInteger(keyword);
+                numericKeyword = Integer.parseInt(keyword);
 
                 //από τη στιγμή που έχουμε να κάνουμε με αριθμό, κάνουμε με το σύμβολο '==' την συνθήκη μας.
                 if (a.getId() == numericKeyword)
