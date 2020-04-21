@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class zooMain
 {
-    static final Scanner input = new Scanner(System.in);
+    static Scanner input = new Scanner(System.in);
     static List<Animal> allAnimals = new ArrayList<>();
 
     public static void main(String[] args)
@@ -52,7 +52,7 @@ public class zooMain
                     System.out.print("\nΕπιστροφή στο αρχικό μενού; (y/n) --> ");
                     String answer1 = input.nextLine();
 
-                    if (answer1.equals("y"))
+                    if (answer1.equals("y") || answer1.equals("Y"))
                         break;
                     else
                         menu = 7;
@@ -92,7 +92,7 @@ public class zooMain
                         System.out.print("Θα θέλατε να προσθέσετε κι άλλο ζώο στη λίστα; (y/n) --> ");
                         answer2 = input.nextLine();
 
-                    } while (answer2.equals("y"));
+                    } while (answer2.equals("y") || answer2.equals("Y"));
 
                     break;
                 case 3:
@@ -103,32 +103,75 @@ public class zooMain
                         System.out.print("Ποιό όνομα θέλετε να ψάξετε; --> ");
                         keyword = input.nextLine();
                         
-                        serialSearch(keyword, false);
+                        serialSearch(keyword, false, -1);
 
                         System.out.print("\nΘα θέλατε να ψάξετε και για κάποιο άλλο όνομα; (y/n) --> ");
                         answer3 = input.nextLine();
 
-                    } while (answer3.equals("y"));
+                    } while (answer3.equals("y") || answer3.equals("Y"));
 
                     break;
                 case 4:
                     String startingKeyword, answer4 = "";
+                    int numericKeyword;
 
                     do
                     {
                         System.out.print("Ποιον κωδικό θέλετε να ψάξετε; --> ");
                         startingKeyword = input.nextLine();
-                        
-
-                        serialSearch(startingKeyword, true);
+                        numericKeyword = convertSafelyToInteger(startingKeyword);
+                        serialSearch("", true, numericKeyword);
 
                         System.out.print("\nΘα θέλατε να ψάξετε για κάποιον άλλον κωδικό; (y/n) --> ");
                         answer4 = input.nextLine();
 
-                    } while (answer4.equals("y"));
+                    } while (answer4.equals("y") || answer4.equals("Y"));
                     
                     break;
                 case 5:
+                    String answer5;
+                    
+                    do
+                    {
+                        System.out.print("Εισάγετε τον κωδικό του ζώου που θέλετε να επεργαστείτε --> ");
+                        startingKeyword = input.nextLine();
+                        numericKeyword = convertSafelyToInteger(startingKeyword);
+
+                        for (Animal a: allAnimals)
+                        {
+                            if (a.getId() == numericKeyword)
+                            {
+                                System.out.print("\nΕισάγετε ένα νέο όνομα. (ΠΡΟΗΓ.: " + a.getCustomName() + ") --> ");
+                                String newCustomName = input.nextLine();
+                                a.setCustomName(newCustomName);
+
+                                System.out.print("Εισάγετε ένα νέο ζώο. (ΠΡΟΗΓ.: " + a.getAnimalName() + ") --> ");
+                                String newAnimalName = input.nextLine();
+                                a.setAnimalName(newAnimalName);
+
+                                System.out.print("Εισάγετε μία νέα κατηγορία. (ΠΡΟΗΓ.: " + a.getType() + ") --> ");
+                                String newType = input.nextLine();
+                                a.setType(newType);
+
+                                System.out.print("Εισάγετε τον νέο αριθμό σε κιλά. (ΠΡΟΗΓ.: " + a.getWeight() + ") --> ");
+                                String newStringWeight = input.nextLine();
+                                int newWeight = convertSafelyToInteger(newStringWeight);
+                                a.setWeight(newWeight);
+
+                                System.out.print("ισάγετε την νέα μέγιστη ηλικία. (ΠΡΟΗΓ.: " + a.getMaxAge() + ") --> ");
+                                String newStringMaxAge = input.nextLine();
+                                int newMaxAge = convertSafelyToInteger(newStringMaxAge);
+                                a.setWeight(newMaxAge);
+                                
+                                System.out.println("\n[ΕΠΕΞΑΡΓΑΣΙΑ]: Η επεξεργασία ολοκληρώθηκε!");
+                            }
+                        }
+
+                        System.out.print("\nΘα θέλατε να επεξεργαστείτε κάποιο άλλο ζώο; (y/n) --> ");
+                        answer5 = input.nextLine();
+
+                    } while(answer5.equals("y") || answer5.equals("Y"));
+
                     break;
                 case 6:
 
@@ -170,9 +213,8 @@ public class zooMain
     }
 
     //μέθοδος για σειριακή αναζήτηση
-    public static boolean serialSearch(String keyword, boolean searchForId)
+    public static boolean serialSearch(String keyword, boolean searchForId, int numericKeyword)
     {
-        int numericKeyword;
         boolean foundAtLeastOne = false;
 
         //Ψάχνουμε ένα-ένα τα αντικείμενά μας
@@ -181,8 +223,6 @@ public class zooMain
             //άμα η boolean μεταβλητή είναι true σημαίνει ότι ψάχνουμε για κωδικό, επομένως έχουμε να κάνουμε με αριθμό, άρα διαφορετική συνθήκη για σειριακή αναζήτηση.
             if (searchForId)
             {
-                numericKeyword = Integer.parseInt(keyword);
-
                 //από τη στιγμή που έχουμε να κάνουμε με αριθμό, κάνουμε με το σύμβολο '==' την συνθήκη μας.
                 if (a.getId() == numericKeyword)
                 {
@@ -203,7 +243,7 @@ public class zooMain
 
         //σε περίπτωση που δεν βρήκαμε τίποτα στην λίστα, με τη βοήθεια αυτής της μεταβλητής, πετάμε και το ανάλογο μήνυμα στον χρήστη.
         if (!(foundAtLeastOne))
-            System.out.println("\nΔεν βρέθηκαν αποτελέσματα με την λέξη-κλειδί '" + keyword + "'.");
+            System.out.println((numericKeyword == -1)? "\nΔεν βρέθηκαν αποτελέσματα με την λέξη-κλειδί '" + keyword + "'." : "\nΔεν βρέθηκαν αποτελέσματα με τον κωδικό " + numericKeyword + ".");
         
         return foundAtLeastOne;
     }
