@@ -174,8 +174,35 @@ public class zooMain
 
                     break;
                 case 6:
+                    String answer6;
+                    int positionToDelete = -1;
 
+                    do
+                    {
+                        System.out.print("Εισάγετε τον κωδικό του ζώου που θέλετε να διαγράψετε --> ");
+                        startingKeyword = input.nextLine();
+                        numericKeyword = convertSafelyToInteger(startingKeyword);
 
+                        for (i = 0; i < allAnimals.size(); i++)
+                        {
+                            if (allAnimals.get(i).getId() == numericKeyword)
+                            {
+                                positionToDelete = i;               
+                            }
+                        }
+
+                        if (positionToDelete != -1)
+                        {
+                            allAnimals.remove(positionToDelete);
+                            System.out.println("\n[ΔΙΑΓΡΑΦΗ]: Επιτυχής διαγραφή του ζώου με κωδικό " + numericKeyword + "!\n");
+                        }
+                        else
+                            System.out.println("\n[ΔΙΑΓΡΑΦΉ]: Δεν βρέθηκε κάποιο ζώο.\n");
+
+                        System.out.print("Θα θέλατε να διαγράψετε κι άλλο ζώο; (y/n) --> ");
+                        answer6 = input.nextLine();
+
+                    } while (answer6.equals("y") || answer6.equals("Y"));
                     break;
             }
         } while(menu != 7);
