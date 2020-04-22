@@ -1,3 +1,9 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,21 +17,27 @@ public class zooMain
     {
         int menu = 0;
 
-        Animal a1 = new Animal("Alfred", "Tiger", "Mammal", 120, 25);
-        Animal a2 = new Animal("Huntress", "Leopard", "Mammal", 10, 15);
-        Animal a3 = new Animal("Screamer", "Wolf", "Mammal", 90, 30);
-        Animal a4 = new Animal("Jason", "Parrot", "Aves", 90, 30);
-        Animal a5 = new Animal("Pinto", "Giraffe", "Mammal", 140, 45);
-        Animal a6 = new Animal("Jager", "Hyenna", "Mammal", 99, 23);
-        Animal a7 = new Animal("Bigtooth", "Shark", "Fish", 187, 29);
-
-        allAnimals.add(a1);
-        allAnimals.add(a2);
-        allAnimals.add(a3);
-        allAnimals.add(a4);
-        allAnimals.add(a5);
-        allAnimals.add(a6);
-        allAnimals.add(a7);
+        try
+        {
+            FileInputStream fileInputStream = new FileInputStream("animals.ser");
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            allAnimals = (List<Animal>) objectInputStream.readObject();
+            objectInputStream.close();
+            fileInputStream.close();
+            System.out.println("Επιτυχής είσοδος των δεδομένων των ζώων!");
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        catch (ClassNotFoundException e)
+        {
+            e.printStackTrace();
+        }
 
 
         System.out.println("ΓΙΩΡΓΟΣ ΣΕΪΜΕΝΗΣ, ΠΑΝΕΠΙΣΤΗΜΙΟ ΠΕΙΡΑΙΩΣ ΤΜΗΜΑ ΠΛΗΡΟΦΟΡΙΚΗΣ, Π19204\n\n");
@@ -214,6 +226,25 @@ public class zooMain
                     break;
             }
         } while(menu != 7);
+
+        try
+        {
+            FileOutputStream    animals = new FileOutputStream("animals.ser");
+            ObjectOutputStream  objectOutputStream = new ObjectOutputStream(animals);
+            objectOutputStream.writeObject(allAnimals);
+            objectOutputStream.close();
+            animals.close();
+            System.out.println("\n\nΕπιτυχής αποθήκευση των ζώων!");
+        } 
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     //μέθοδος για την Εμφάνιση του μενού, η οποία επιστρέφει και την επιλογή του Χρήστη.
