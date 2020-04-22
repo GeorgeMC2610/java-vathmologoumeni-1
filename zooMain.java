@@ -88,6 +88,7 @@ public class zooMain
                         Animal a = new Animal(customName, animalName, type, weight, maxAge);
                         allAnimals.add(a);
 
+                        //Αν έχουμε φτάσει σε αυτό το σημείο, σημαίνει ότι το ζώο προσετέθη και εμφανίζουμε με ποιον κωδικό μπήκε στη λίστα το ζώο.
                         System.out.println("\n[ΠΡΟΣΘΗΚΗ]: Επιτυχής προσθήκη! Το ζώο σας είναι στον ζωολογικό κήπο με κωδικό " + a.getId());
                         System.out.print("Θα θέλατε να προσθέσετε κι άλλο ζώο στη λίστα; (y/n) --> ");
                         answer2 = input.nextLine();
@@ -133,7 +134,7 @@ public class zooMain
                     
                     do
                     {
-                        System.out.print("Εισάγετε τον κωδικό του ζώου που θέλετε να επεργαστείτε --> ");
+                        System.out.print("Εισάγετε τον κωδικό του ζώου που θέλετε να επεξεργαστείτε --> ");
                         startingKeyword = input.nextLine();
                         numericKeyword = convertSafelyToInteger(startingKeyword);
 
@@ -158,7 +159,7 @@ public class zooMain
                                 int newWeight = convertSafelyToInteger(newStringWeight);
                                 a.setWeight(newWeight);
 
-                                System.out.print("ισάγετε την νέα μέγιστη ηλικία. (ΠΡΟΗΓ.: " + a.getMaxAge() + ") --> ");
+                                System.out.print("Εισάγετε την νέα μέγιστη ηλικία. (ΠΡΟΗΓ.: " + a.getMaxAge() + ") --> ");
                                 String newStringMaxAge = input.nextLine();
                                 int newMaxAge = convertSafelyToInteger(newStringMaxAge);
                                 a.setWeight(newMaxAge);
