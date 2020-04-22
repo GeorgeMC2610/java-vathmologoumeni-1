@@ -51,7 +51,7 @@ public class Animal implements Serializable
     public void setType(String type)                {this.type = type;}
     public void setAnimalName(String animalName)    {this.animalName = animalName;}
 
-    //σε περίπτωση που χρειαστεί να παράγουμε έναν κωδικό για ένα ζώο, έχουμε αυτήν εδώ τη συνάρτηση, που επιστρέφει έναν τυχαίο αριθμό από το 10000 έως το 99999.
+    //σε περίπτωση που χρειαστεί να παράγουμε έναν κωδικό για ένα ζώο, έχουμε αυτήν εδώ τη μέθοδο, που επιστρέφει έναν τυχαίο αριθμό από το 10000 έως το 99999.
     private static int generateNewId()
     {
         Random rand = new Random();
