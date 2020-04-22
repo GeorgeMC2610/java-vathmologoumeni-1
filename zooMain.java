@@ -101,25 +101,30 @@ public class zooMain
 
                     do
                     {
+                        //όταν πάρουμε από τον χρήστη το όνομα, μετά βάζουμε στην μέθοδό μας τα ορίσματα να είναι false και -1, για να ξέρει η μέθοδος να ψάξει μονάχα για όνομα.
                         System.out.print("Ποιό όνομα θέλετε να ψάξετε; --> ");
                         keyword = input.nextLine();
                         
                         serialSearch(keyword, false, -1);
+                        //το γεγονός ότι η μέθοδος κάνει από μόνη της τα print, ακόμη κι αν επιστρέφει true ή false, μπορούμε απλά να την εκτελέσουμε.
 
                         System.out.print("\nΘα θέλατε να ψάξετε και για κάποιο άλλο όνομα; (y/n) --> ");
                         answer3 = input.nextLine();
 
                     } while (answer3.equals("y") || answer3.equals("Y"));
+                    //η διαδικασία συνεχίζεται μέχρι να δώσει ο χρήστης οτιδήποτε άλλο εκτός από "y".
 
                     break;
                 case 4:
                     String startingKeyword, answer4 = "";
-                    int numericKeyword;
 
                     do
                     {
+                        //η ίδια ιστορία με την case 3 εδώ, απλά διασφαλίζουμε ότι θα στείλουμε ακέραιο αριθμό στο τρίτο όρισμα, και το κάνουμε μέσω της convertSafelyToInteger μεθόδου.
+                        int numericKeyword;
                         System.out.print("Ποιον κωδικό θέλετε να ψάξετε; --> ");
                         startingKeyword = input.nextLine();
+
                         numericKeyword = convertSafelyToInteger(startingKeyword);
                         serialSearch("", true, numericKeyword);
 
@@ -134,6 +139,8 @@ public class zooMain
                     
                     do
                     {
+                        int numericKeyword;
+                        
                         System.out.print("Εισάγετε τον κωδικό του ζώου που θέλετε να επεξεργαστείτε --> ");
                         startingKeyword = input.nextLine();
                         numericKeyword = convertSafelyToInteger(startingKeyword);
@@ -176,10 +183,10 @@ public class zooMain
                     break;
                 case 6:
                     String answer6;
-                    int positionToDelete = -1;
 
                     do
                     {
+                        int numericKeyword, positionToDelete = -1;
                         System.out.print("Εισάγετε τον κωδικό του ζώου που θέλετε να διαγράψετε --> ");
                         startingKeyword = input.nextLine();
                         numericKeyword = convertSafelyToInteger(startingKeyword);
