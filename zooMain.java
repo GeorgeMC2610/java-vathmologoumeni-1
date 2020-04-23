@@ -28,7 +28,7 @@ public class zooMain
         }
         catch (FileNotFoundException e)
         {
-            e.printStackTrace();
+            System.out.println("[ΛΗΨΗ ΖΩΩΝ]: Δεν βρέθηκε το αρχείο 'animals.ser'. Η λίστα των ζώων θα παραμείνει κενή!");
         }
         catch (IOException e)
         {
