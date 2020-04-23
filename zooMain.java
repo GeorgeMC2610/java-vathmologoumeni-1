@@ -24,11 +24,11 @@ public class zooMain
             allAnimals = (List<Animal>) objectInputStream.readObject();
             objectInputStream.close();
             fileInputStream.close();
-            System.out.println("Επιτυχής είσοδος των δεδομένων των ζώων!");
+            System.out.println("[ΛΗΨΗ ΖΩΩΝ]: Επιτυχής είσοδος των δεδομένων των ζώων!\n\n");
         }
         catch (FileNotFoundException e)
         {
-            System.out.println("[ΛΗΨΗ ΖΩΩΝ]: Δεν βρέθηκε το αρχείο 'animals.ser'. Η λίστα των ζώων θα παραμείνει κενή!");
+            System.out.println("[ΛΗΨΗ ΖΩΩΝ]: Δεν βρέθηκε το αρχείο 'animals.ser'. Η λίστα των ζώων θα παραμείνει κενή!\n\n");
         }
         catch (IOException e)
         {
@@ -184,6 +184,7 @@ public class zooMain
                                 a.setWeight(newMaxAge);
                                 
                                 System.out.println("\n[ΕΠΕΞΑΡΓΑΣΙΑ]: Η επεξεργασία ολοκληρώθηκε!");
+                                break;
                             }
                         }
 
@@ -207,7 +208,8 @@ public class zooMain
                         {
                             if (allAnimals.get(i).getId() == numericKeyword)
                             {
-                                positionToDelete = i;               
+                                positionToDelete = i;
+                                break;               
                             }
                         }
 
