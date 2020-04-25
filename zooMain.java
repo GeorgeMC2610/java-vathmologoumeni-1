@@ -74,19 +74,25 @@ public class zooMain
                     int maxAge, weight; 
                     
                     //δίνουμε την δυνατότητα στον Χρήστη να εισάγει πολλά ζώα, αν αυτός επιθυμεί.
-                    do {
+                    do 
+                    {
 
                         System.out.println("=== ΜΕΝΟΥ ΠΡΟΣΘΗΚΗΣ ΝΕΟΥ ΖΩΟΥ ===");
                 
-                        //εισαγωγή στοιχείων του ζώου. Από τη στιγμή που ο Χρήστης εισάγει strings δεν χρειάζεται κάποιος έλεγχος.
-                        System.out.print("\nΠώς θέλετε να το ονομάσετε; --> ");
-                        customName = input.nextLine();
+                        //εισαγωγή στοιχείων του ζώου. Από τη στιγμή που ο Χρήστης εισάγει strings, ο μόνος έλεγχος θα πρέπει να είναι στο να μην είναι κενά strings.
 
-                        System.out.print("Τι ζώο είναι; --> ");
-                        animalName = input.nextLine();
+                        do{
+                            System.out.print("\nΠώς θέλετε να το ονομάσετε; --> ");
+                            customName = input.nextLine();
+                        } while (customName.isEmpty());
 
-                        System.out.print("Σε ποιά κατηγορία ανήκει (π.χ. θηλαστικό); --> ");
-                        type = input.nextLine();
+                        do{
+                            System.out.print("Τι ζώο είναι; --> ");
+                            animalName = input.nextLine();
+                        } while (animalName.isEmpty());
+
+                            System.out.print("Σε ποιά κατηγορία ανήκει (π.χ. θηλαστικό); --> ");
+                            type = input.nextLine();
 
                         //εισαγωγή αριθμητικών στοιχείων, εδώ θα χρειαστεί λίγος παραπάνω έλεγχος.
                         System.out.print("Πόσα κιλά (kg) ζυγίζει; --> ");
@@ -204,15 +210,19 @@ public class zooMain
                         startingKeyword = input.nextLine();
                         numericKeyword = convertSafelyToInteger(startingKeyword);
 
+                        //ο λόγος που δεν χρησιμοποιούμε την μέθοδο serial search, είναι επειδή πρέπει να κάνουμε παραπάνω πράγματα. Π.χ. δεν πρέπει να μπούμε στην λίστα με for (Animal a: allAnimals)
                         for (i = 0; i < allAnimals.size(); i++)
                         {
                             if (allAnimals.get(i).getId() == numericKeyword)
                             {
+                                //δεν αφαιρούμε επιτόπου το αντικείμενο από τη λίστα, διότι δεν θα τρέεξει το πρόγραμμα, καθώς αλλάζει το μέγεθος της λίστας όσο τρέχει η for.
+                                //αποθηκεύουμε τη θέση που θέλουμε να διαγράψουμε στη μεταβλητή και μετά βγαίνουμε από τη for.
                                 positionToDelete = i;
                                 break;               
                             }
                         }
 
+                        //αν όντως έχει βρεθεί ζώο, το διαγράφουμε από τη λίστα.
                         if (positionToDelete != -1)
                         {
                             allAnimals.remove(positionToDelete);
@@ -229,6 +239,7 @@ public class zooMain
             }
         } while(menu != 7);
 
+        //αποθηκεύουμε τη λίστα στο αρχείο animals.ser.
         try
         {
             FileOutputStream    animals = new FileOutputStream("animals.ser");
@@ -316,6 +327,7 @@ public class zooMain
         return foundAtLeastOne;
     }
 
+    //σε αυτήν την μέθοδο ο χρήστης θα πρέπει να δίνει διαδοχικά διαφορετικό input μέχρι αυτό να είναι αριθμός.
     public static int convertSafelyToInteger(String s)
     {
         int i;
