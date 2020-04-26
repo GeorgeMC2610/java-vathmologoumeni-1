@@ -182,12 +182,12 @@ public class zooMain
                                 System.out.print("Εισάγετε ένα νέο ζώο. (ΠΡΟΗΓ.: " + a.getAnimalName() + ") --> ");
                                 String newAnimalName = input.nextLine();
                                 if (newAnimalName.isEmpty() == false)
-                                    a.setCustomName(newCustomName);
+                                    a.setAnimalName(newAnimalName);
 
                                 System.out.print("Εισάγετε μία νέα κατηγορία. (ΠΡΟΗΓ.: " + a.getType() + ") --> ");
                                 String newType = input.nextLine();
                                 if (newType.isEmpty() == false)
-                                    a.setCustomName(newCustomName);
+                                    a.setType(newType);
 
                                 //πάλι χρησιμοποιούμε την μέθοδό μας για να διασφαλίσουμε σωστές τιμές.
                                 do{
