@@ -91,22 +91,28 @@ public class zooMain
                             animalName = input.nextLine();
                         } while (animalName.isEmpty());
 
+                        do{
                             System.out.print("Σε ποιά κατηγορία ανήκει (π.χ. θηλαστικό); --> ");
                             type = input.nextLine();
+                        } while (type.isEmpty());
 
                         //εισαγωγή αριθμητικών στοιχείων, εδώ θα χρειαστεί λίγος παραπάνω έλεγχος.
-                        System.out.print("Πόσα κιλά (kg) ζυγίζει; --> ");
-                        String startingWeight = input.nextLine();
-                        weight = convertSafelyToInteger(startingWeight);
+                        do{
+                            System.out.print("Πόσα κιλά (kg) ζυγίζει; --> ");
+                            String startingWeight = input.nextLine();
+                            weight = convertSafelyToInteger(startingWeight);
+                        } while (weight < 0);
 
+                        do{
                         System.out.print("Ποιά είναι μέγιστη ηλικία του; --> ");
                         String startingMaxAge = input.nextLine();
                         maxAge = convertSafelyToInteger(startingMaxAge);
-                        
+                        } while (maxAge <= 0);
+
+                        //Αν έχουμε φτάσει σε αυτό το σημείο, σημαίνει ότι το ζώο προσετέθη και εμφανίζουμε με ποιον κωδικό μπήκε στη λίστα το ζώο.
                         Animal a = new Animal(customName, animalName, type, weight, maxAge);
                         allAnimals.add(a);
 
-                        //Αν έχουμε φτάσει σε αυτό το σημείο, σημαίνει ότι το ζώο προσετέθη και εμφανίζουμε με ποιον κωδικό μπήκε στη λίστα το ζώο.
                         System.out.println("\n[ΠΡΟΣΘΗΚΗ]: Επιτυχής προσθήκη! Το ζώο σας είναι στον ζωολογικό κήπο με κωδικό " + a.getId());
                         System.out.print("Θα θέλατε να προσθέσετε κι άλλο ζώο στη λίστα; (y/n) --> ");
                         answer2 = input.nextLine();
@@ -157,36 +163,45 @@ public class zooMain
                     
                     do
                     {
-                        int numericKeyword;
-                        
+                        int numericKeyword, newWeight, newMaxAge;                        
                         System.out.print("Εισάγετε τον κωδικό του ζώου που θέλετε να επεξεργαστείτε --> ");
                         startingKeyword = input.nextLine();
                         numericKeyword = convertSafelyToInteger(startingKeyword);
 
+                        //εδώ δεν μπορούμε να χρησιμοποιήσουμε την μέθοδό μας που έχουμε γράψει πιο κάτω, διότι θέλουμε να κάνουμε αρκετές διεργασίες κατά την προσθήκης.
                         for (Animal a: allAnimals)
                         {
                             if (a.getId() == numericKeyword)
                             {
+                                //αν ένα String δεν έχει συμπληρωθεί, θα αφήνει την τιμή προς επεξεργασία απείραχτη.
                                 System.out.print("\nΕισάγετε ένα νέο όνομα. (ΠΡΟΗΓ.: " + a.getCustomName() + ") --> ");
                                 String newCustomName = input.nextLine();
-                                a.setCustomName(newCustomName);
+                                if (newCustomName.isEmpty() == false)
+                                    a.setCustomName(newCustomName);
 
                                 System.out.print("Εισάγετε ένα νέο ζώο. (ΠΡΟΗΓ.: " + a.getAnimalName() + ") --> ");
                                 String newAnimalName = input.nextLine();
-                                a.setAnimalName(newAnimalName);
+                                if (newAnimalName.isEmpty() == false)
+                                    a.setCustomName(newCustomName);
 
                                 System.out.print("Εισάγετε μία νέα κατηγορία. (ΠΡΟΗΓ.: " + a.getType() + ") --> ");
                                 String newType = input.nextLine();
-                                a.setType(newType);
+                                if (newType.isEmpty() == false)
+                                    a.setCustomName(newCustomName);
 
-                                System.out.print("Εισάγετε τον νέο αριθμό σε κιλά. (ΠΡΟΗΓ.: " + a.getWeight() + ") --> ");
-                                String newStringWeight = input.nextLine();
-                                int newWeight = convertSafelyToInteger(newStringWeight);
+                                //πάλι χρησιμοποιούμε την μέθοδό μας για να διασφαλίσουμε σωστές τιμές.
+                                do{
+                                    System.out.print("Εισάγετε τον νέο αριθμό σε κιλά. (ΠΡΟΗΓ.: " + a.getWeight() + ") --> ");
+                                    String newStringWeight = input.nextLine();
+                                    newWeight = convertSafelyToInteger(newStringWeight);
+                                } while (newWeight <= 0);
                                 a.setWeight(newWeight);
 
-                                System.out.print("Εισάγετε την νέα μέγιστη ηλικία. (ΠΡΟΗΓ.: " + a.getMaxAge() + ") --> ");
-                                String newStringMaxAge = input.nextLine();
-                                int newMaxAge = convertSafelyToInteger(newStringMaxAge);
+                                do {
+                                    System.out.print("Εισάγετε την νέα μέγιστη ηλικία. (ΠΡΟΗΓ.: " + a.getMaxAge() + ") --> ");
+                                    String newStringMaxAge = input.nextLine();
+                                    newMaxAge = convertSafelyToInteger(newStringMaxAge);
+                                } while (newMaxAge <= 0);
                                 a.setWeight(newMaxAge);
                                 
                                 System.out.println("\n[ΕΠΕΞΑΡΓΑΣΙΑ]: Η επεξεργασία ολοκληρώθηκε!");
